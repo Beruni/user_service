@@ -1,0 +1,10 @@
+node_modules/
+.DS_Store
+dist/
+.idea/*
+*.iml
+typings/*
+*.js
+*.js.map
+*.log
+
