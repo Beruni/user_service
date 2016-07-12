@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build:dir": "mkdir -p ./dist/js",
-    "test": "echo '=> running tests' && ./node_modules/.bin/jasmine-node spec && echo '=> tests passed'",
+    "test": "echo '=> running tests' && tsc && ./node_modules/.bin/jasmine-node spec && echo '=> tests passed'",
     "minify:js": "npm run minify:app && npm run minify:controllers && npm run minify:renderers && npm run minify:routes && npm run minify:models",
     "minify:app": "echo '=> minify:app' && uglifyjs ./*.js -o ./dist/js/app.min.js --source-map ./dist/js/app.js.map && echo '=> minify:app completed'",
     "minify:controllers": "echo '=> minify:controllers' && uglifyjs ./controllers/*.js -o ./dist/js/controllers.js --source-map ./dist/js/controllers.map && echo '=> minify:controllers completed'",
