@@ -6,10 +6,10 @@ import * as express from "express";
 import * as router from "./routes";
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/beruni_users')
 
 var app = express();
 app.set('port', process.env.PORT || '3001');
+app.set('mongo_host', process.env.MONGO_HOST || 'localhost');
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -26,3 +26,4 @@ app.get("/ping", function(request, response){
 app.use(router);
 
 app.listen(app.get('port'));
+mongoose.connect('mongodb://'+ app.get('mongo_host') +'/beruni_users');

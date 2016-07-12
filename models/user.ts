@@ -3,7 +3,7 @@ var model = mongoose.model('User', new mongoose.Schema({user_id: Number, name: S
 
 export class User {
   key() {
-    return "user_id";
+    return "_id";
   }
 
   findById(id) {
