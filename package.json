@@ -7,7 +7,12 @@
     "clean": "rm -rf dist",
     "build:dir": "mkdir -p ./dist/js",
     "test": "echo '=> running tests' && ./node_modules/.bin/jasmine-node spec && echo '=> tests passed'",
-    "minify:js": "echo '=> minify:js' && uglifyjs ./*.js -o ./dist/js/app.min.js --source-map ./dist/js/app.js.map && echo '=> minify:js completed'",
+    "minify:js": "npm run minify:app && npm run minify:controllers && npm run minify:renderers && npm run minify:routes && npm run minify:models",
+    "minify:app": "echo '=> minify:app' && uglifyjs ./*.js -o ./dist/js/app.min.js --source-map ./dist/js/app.js.map && echo '=> minify:app completed'",
+    "minify:controllers": "echo '=> minify:controllers' && uglifyjs ./controllers/*.js -o ./dist/js/controllers.js --source-map ./dist/js/controllers.map && echo '=> minify:controllers completed'",
+    "minify:renderers": "echo '=> minify:renderers' && uglifyjs ./renderers/*.js -o ./dist/js/renderers.js --source-map ./dist/js/renderers.map && echo '=> minify:renderers completed'",
+    "minify:routes": "echo '=> minify:routes' && uglifyjs ./routes/*.js -o ./dist/js/routes.js --source-map ./dist/js/routes.map && echo '=> minify:routes completed'",
+    "minify:models": "echo '=> minify:models' && uglifyjs ./models/*.js -o ./dist/js/models.js --source-map ./dist/js/models.js.map && echo '=> minify:models completed'",
     "start": "node ./dist/js/app.min.js",
     "build": "echo 'Running build....' && npm run clean && tsc && npm run build:dir && npm run test && npm run minify:js",
     "tsc": "tsc",
@@ -24,13 +29,14 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.14.0",
-    "mongodb": "^2.1.18"
+    "mongodb": "^2.1.18",
+    "mongoose": "^4.5.3"
   },
   "devDependencies": {
     "jasmine-node": "^1.14.5",
     "source-map-loader": "^0.1.5",
     "ts-loader": "^0.8.2",
     "uglify-js": "^2.7.0",
-    "typings":"1.3.1"
+    "typings": "1.3.1"
   }
 }
