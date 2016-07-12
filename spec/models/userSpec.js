@@ -1,10 +1,9 @@
-var proxyquire = require('proxyquire');
-var mongoModelStub = {where: null};
-var User = proxyquire('../../models/user', {'mongoose': {Schema: function(){}, model: function(){return mongoModelStub}}}).User;
+var specHelper = require('../spec_helper');
+var stubUser = specHelper.stubMongoModel('user');
 
 describe('User', function() {
   it('should have a key column as _id', function() {
-    var user = new User();
+    var user = new stubUser.model();
     expect(user.key()).toEqual('_id');
   });
   it('should try to find the user by supplied id', function() {
@@ -12,9 +11,9 @@ describe('User', function() {
       expect(key).toEqual('_id');
       expect(id).toEqual('foobar');
     };
-    spyOn(mongoModelStub, 'where').andCallFake(whereAssertions);
-    var user = new User();
+    spyOn(stubUser.mongoModel, 'where').andCallFake(whereAssertions);
+    var user = new stubUser.model();
     user.findById('foobar');
-    expect(mongoModelStub.where).toHaveBeenCalled();
+    expect(stubUser.mongoModel.where).toHaveBeenCalled();
   });
 });
