@@ -4,7 +4,10 @@ dist/
 .idea/*
 *.iml
 typings/*
-*.js
+controllers/*.js
+models/*.js
+routes/*.js
+renderers/*.js
+app.js
 *.js.map
 *.log
-
