@@ -5,7 +5,6 @@ describe('UserController', function() {
     describe('get', function() {
         it('should render user for given userId', function() {
             var renderer = {render: function(user) {
-                expect(user).toBeDefined();
                 expect(user).not.toBe(null);
             }};
             spyOn(renderer, 'render');
@@ -20,6 +19,19 @@ describe('UserController', function() {
             };
             userController.get(userId);
             expect(renderer.render).toHaveBeenCalledWith(userObject);
+        });
+        it('should log the error and continue to render the model in case fetch fails', function() {
+            var renderer = {render: function(user){}};
+            spyOn(renderer, 'render');
+            spyOn(console, 'log').andCallFake(function(message) {
+                expect(message).toEqual('some_error');
+            });
+            var userController = new usersControllerHandle.controller(renderer);
+            usersControllerHandle.models.User.prototype.findById = function(id, callback) {
+                callback('some_error', null);
+            };
+            userController.get('something');
+            expect(renderer.render).toHaveBeenCalledWith(null);
         });
     });
 });
