@@ -6,7 +6,8 @@ export class User {
     return "_id";
   }
 
-  findById(id) {
-    return model.where(this.key(), id);
+  findById(id, callback) {
+    var query = model.where(this.key(), id);
+    query.findOne(callback);
   }
 }
