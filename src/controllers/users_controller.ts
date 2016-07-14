@@ -11,8 +11,10 @@ export class UsersController {
     var renderer = this.renderer;
 
     user.findById(id, function (err, user) {
-      if (err) console.log(err);
-      renderer.render(user);
-    });
+                        if (err)
+                          console.log(err);
+                        renderer.render(user);
+                      }
+                      );
   }
 }

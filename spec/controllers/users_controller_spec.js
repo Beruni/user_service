@@ -2,7 +2,9 @@ var specHelper = require('../spec_helper');
 var usersControllerHandle = specHelper.requireController('users_controller');
 
 describe('UserController', function() {
+
     describe('get', function() {
+
         it('should render user for given userId', function() {
             var renderer = {render: function(user) {
                 expect(user).not.toBe(null);
@@ -20,6 +22,7 @@ describe('UserController', function() {
             userController.get(userId);
             expect(renderer.render).toHaveBeenCalledWith(userObject);
         });
+
         it('should log the error and continue to render the model in case fetch fails', function() {
             var renderer = {render: function(user){}};
             spyOn(renderer, 'render');
