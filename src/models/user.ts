@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+import * as mongoose from 'mongoose';
 var model = mongoose.model('User', new mongoose.Schema({user_id: Number, name: String}));
 
 export class User {

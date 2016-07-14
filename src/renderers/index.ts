@@ -1,5 +1,7 @@
+import * as express from 'express';
+
 export class JsonRenderer {
-  response;
+  response:express.Response;
   constructor(response) {
     this.response = response;
   }

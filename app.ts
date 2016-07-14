@@ -3,9 +3,8 @@
 'use strict';
 
 import * as express from "express";
-import * as router from "./routes";
-
-var mongoose = require('mongoose');
+import * as mongoose from "mongoose";
+import * as routes from "./src/routes";
 
 var app = express();
 app.set('port', process.env.PORT || '3001');
@@ -23,7 +22,7 @@ app.get("/ping", function(request, response){
     response.end("Pong");
 });
 
-app.use(router);
+app.use(routes);
 
 app.listen(app.get('port'));
 mongoose.connect('mongodb://'+ app.get('mongo_host') +'/beruni_users');

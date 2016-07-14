@@ -1,4 +1,4 @@
-var models = require('./models');
+import * as models from '../models';
 
 export class UsersController {
   renderer;
