@@ -1,7 +1,7 @@
 // var specHelper = require('../spec_helper');
 // var rendererHandle = specHelper.requireRenderer('index');
 
-var renderers = require('../../renderers');
+var renderers = require('../../src/renderers');
 
 describe('JsonRenderer',function(){
 

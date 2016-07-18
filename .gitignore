@@ -4,7 +4,7 @@ dist/
 .idea/*
 *.iml
 typings/*
-app/*.js
+src/*.js
 app.js
 *.js.map
 *.log

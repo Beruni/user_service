@@ -4,6 +4,7 @@
 
 import * as express from "express";
 import * as mongoose from "mongoose";
+import * as cookieParser from 'cookie-parser'
 import * as routes from "./src/routes";
 
 var app = express();
@@ -16,6 +17,7 @@ app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Methods', 'GET');
   next();
 });
+app.use(cookieParser());
 
 app.get("/ping", function(request, response){
     response.writeHead(200, {"Content-Type" : "text/plain"});
