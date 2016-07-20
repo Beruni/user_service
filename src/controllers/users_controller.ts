@@ -10,9 +10,8 @@ export class UsersController {
 
   get(token) {
     var renderer = this.renderer;
-    var user = this.user;
-    var userId = user.userId(token);
-    user.findById(userId, function (err, user) {
+    var userId = this.user.userId(token);
+    this.user.findById(userId, function (err, user) {
       if (err) {
         console.log(err);
         renderer.renderError(err, 500);

@@ -9,11 +9,8 @@ function requireModel(modelName) {
 }
 
 function requireController(controllerName){
-    var stubModels = {
-      User: function(){},
-      '@noCallThru': true
-    };
-    var controller = proxyquire('../src/controllers/' + controllerName, {'./models': stubModels})[inflection.camelize(controllerName)];
+    var stubModels = {};
+    var controller = proxyquire('../src/controllers/' + controllerName, {'../models': stubModels})[inflection.camelize(controllerName)];
     return {controller: controller, models: stubModels};
 }
 

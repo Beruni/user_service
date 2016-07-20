@@ -9,7 +9,7 @@ import * as routes from "./src/routes";
 
 var app = express();
 app.set('port', process.env.PORT || '3001');
-app.set('mongo_host', process.env.MONGO_HOST || 'localhost');
+app.set('mongo_host', process.env.MONGO_PORT_27017_TCP_ADDR || 'localhost');
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
