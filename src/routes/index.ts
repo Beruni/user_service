@@ -13,7 +13,7 @@ routes.get('/current_user', function(request, response) {
 
 if(process.env.NODE_ENV != 'production') {
   // in development
-  routes.post('/login', function(request, response) {
+  routes.post('/authorize', function(request, response) {
   	var accessToken = request.body.accessToken;
 	var source = request.body.source;
 	var oauthUserId = request.body.userId;
