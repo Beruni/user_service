@@ -1,9 +1,17 @@
 import * as mongoose from 'mongoose';
 import * as crypto from 'crypto';
 
-var model = mongoose.model('User', new mongoose.Schema({user_id: Number, name: String}));
+var Schema = mongoose.Schema;
+var userSchema = new Schema({
+  "user_id" : String, 
+  "source" : String,
+  "email" : String,
+  "name" : String
+});
 
-export class User {
+var model = mongoose.model('User', userSchema);
+
+export class User {  
   key() {
     return "_id";
   }
@@ -34,12 +42,36 @@ export class User {
       }
     });
     
-    var expiryDate = new Date(Date.now() + 1800000);
+    var expiryDate = new Date(Date.now() + (30*60*1000));
     if(process.env.NODE_ENV != 'production') {
       console.log('New Session Generated, expiry : ' + expiryDate.toString());
     }
     cipher.write(JSON.stringify({"user_id": userData['_id'], "expiry_date": expiryDate.toString()}));
     cipher.end();
     return encryptedData;
+  }
+
+  save(userData:JSON, source:string){
+    var user = new model({
+      "user_id": userData["id"],
+      "email":userData["email"], 
+      "name":userData["name"], 
+      "source": source
+    });
+
+    var query = model.where("user_id", userData["id"]);
+    query.findOne(function(err,currentUser){
+        if(currentUser){
+          console.log("User already exists");
+        }else{
+          user.save(function(err){
+            console.log("saving");
+            if(!err){
+              console.log('User saved.');
+            }
+          });
+        }
+    });
+    return user;
   }
 }

@@ -1,4 +1,5 @@
 import * as models from '../models';
+var graph = require('fbgraph');
 
 export class UsersController {
   renderer;
@@ -21,9 +22,14 @@ export class UsersController {
     });
   }
 
-  authorize(accessToken, source) {
-    var sampleUserId = "5784c3544b40fad6bd2de42f";
-    var userToken = this.user.userToken({"_id": sampleUserId});
-    this.renderer.render({"user_token": userToken });
+  authorize(accessToken, source, oauthUserId) {
+    graph.setAccessToken(accessToken);
+    var user = this.user;
+    var renderer = this.renderer;
+    graph.get(oauthUserId, { "fields": "name, email" }, function(err, userData) {
+      var userObject = user.save(userData,source);
+      var userToken = user.userToken(userObject);
+      renderer.render({"user_token": userToken });
+    });
   }
 }

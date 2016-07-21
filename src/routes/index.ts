@@ -1,4 +1,6 @@
 import * as controllers from '../controllers';
+import * as models from '../models';
+
 import * as renderers from '../renderers';
 import * as express from 'express';
 
@@ -11,9 +13,12 @@ routes.get('/current_user', function(request, response) {
 
 if(process.env.NODE_ENV != 'production') {
   // in development
-  routes.post('/authorize', function(request, response) {
+  routes.post('/login', function(request, response) {
+  	var accessToken = request.body.accessToken;
+	var source = request.body.source;
+	var oauthUserId = request.body.userId;
     var usersController = new controllers.UsersController(new renderers.JsonRenderer(response));
-    usersController.authorize(request.params['access_token'], request.params['source']);
+    usersController.authorize(accessToken, source, oauthUserId);
   });
 }
 

@@ -30,9 +30,12 @@
   "dependencies": {
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
+    "express-session": "^1.14.0",
+    "fbgraph": "^1.2.0",
     "inflection": "^1.10.0",
     "mongodb": "^2.1.18",
-    "mongoose": "^4.5.3"
+    "mongoose": "^4.5.3",
+    "uid-safe": "^2.1.1"
   },
   "devDependencies": {
     "jasmine-node": "^1.14.5",
