@@ -17,11 +17,12 @@ app.use(session({
     key: 'session',
     secret: 'this is session will be encrypted',
     store: store(mongoose),
-    saveUninitialized: true,
     cookie:{
     	expires: new Date(Date.now() + 60 * 60 * 1000),
     	secure : true,
     	domain : 'http://localhost:8080',
+    	httpOnly : false,
+    	path : '/authorize'
     }
 }));
 
