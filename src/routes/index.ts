@@ -14,9 +14,9 @@ routes.get('/current_user', function(request, response) {
 if(process.env.NODE_ENV != 'production') {
   // in development
   routes.post('/authorize', function(request, response) {
-  	var accessToken = request.body.accessToken;
-	var source = request.body.source;
-	var oauthUserId = request.body.userId;
+    var accessToken = request.body.accessToken;
+	  var source = request.body.source;
+	  var oauthUserId = request.body.userId;
     var usersController = new controllers.UsersController(new renderers.JsonRenderer(response));
     usersController.authorize(accessToken, source, oauthUserId);
   });

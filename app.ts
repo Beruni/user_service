@@ -8,7 +8,22 @@ import * as cookieParser from 'cookie-parser'
 import * as routes from "./src/routes";
 
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var store = require('mongoose-session');
+
 var app = express();
+
+app.use(session({
+    key: 'session',
+    secret: 'this is session will be encrypted',
+    store: store(mongoose),
+    saveUninitialized: true,
+    cookie:{
+    	expires: new Date(Date.now() + 60 * 60 * 1000),
+    	secure : true,
+    	domain : 'http://localhost:8080',
+    }
+}));
 
 app.use(bodyParser.json());
 app.use(cookieParser());

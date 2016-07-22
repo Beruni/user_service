@@ -36,6 +36,8 @@
     "inflection": "^1.10.0",
     "mongodb": "^2.1.18",
     "mongoose": "^4.5.3",
+    "mongoose-session": "0.0.4",
+    "session-mongoose": "^0.5.2",
     "uid-safe": "^2.1.1"
   },
   "devDependencies": {

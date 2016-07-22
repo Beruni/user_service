@@ -41,12 +41,7 @@ export class User {
         encryptedData += data.toString('hex');
       }
     });
-    
-    var expiryDate = new Date(Date.now() + (30*60*1000));
-    if(process.env.NODE_ENV != 'production') {
-      console.log('New Session Generated, expiry : ' + expiryDate.toString());
-    }
-    cipher.write(JSON.stringify({"user_id": userData['_id'], "expiry_date": expiryDate.toString()}));
+    cipher.write(JSON.stringify({"user_id": userData['_id']}));
     cipher.end();
     return encryptedData;
   }
