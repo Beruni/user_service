@@ -8,8 +8,8 @@ var routes = express.Router();
 
 var loginUsingSession = function(request,response, next){
   var usersController = new controllers.UsersController(new renderers.JsonRenderer(response));
-  if(request.session['token'])
-    usersController.get(request.session['token']);
+  if(request.session['user_token'])
+    usersController.get(request.session['user_token']);
   next();
 }
 
@@ -17,8 +17,7 @@ routes.use(loginUsingSession);
 
 routes.get('/current_user', function(request, response) {
   var usersController = new controllers.UsersController(new renderers.JsonRenderer(response));
-  console.log(request['session']['user_id'])
-  usersController.get(request['session']['user_id']);
+  usersController.get(request['session']['user_token']);
 });
 
 if(process.env.NODE_ENV != 'production') {
