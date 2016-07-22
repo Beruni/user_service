@@ -29,7 +29,7 @@ export class UsersController {
     graph.get(oauthUserId, { "fields": "name, email" }, function(err, userData) {
       var userObject = user.save(userData,source);
       var userToken = user.userToken(userObject);
-      renderer.render({"user_token": userToken });
+      renderer.render({"user_token": userToken, coookie : {expires: new Date(Date.now() + 60 * 60 * 1000)}});
     });
   }
 }
