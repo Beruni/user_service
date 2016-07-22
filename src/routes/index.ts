@@ -6,19 +6,29 @@ import * as express from 'express';
 
 var routes = express.Router();
 
+var loginUsingSession = function(request,response, next){
+  var usersController = new controllers.UsersController(new renderers.JsonRenderer(response));
+  if(request.session['token'])
+    usersController.get(request.session['token']);
+  next();
+}
+
+routes.use(loginUsingSession);
+
 routes.get('/current_user', function(request, response) {
   var usersController = new controllers.UsersController(new renderers.JsonRenderer(response));
-  usersController.get(request.cookies['user_token']);
+  console.log(request['session']['user_id'])
+  usersController.get(request['session']['user_id']);
 });
 
 if(process.env.NODE_ENV != 'production') {
   // in development
-  routes.post('/authorize', function(request, response) {
+  routes.post('/authorize',function(request, response) {
     var accessToken = request.body.accessToken;
 	  var source = request.body.source;
 	  var oauthUserId = request.body.userId;
     var usersController = new controllers.UsersController(new renderers.JsonRenderer(response));
-    usersController.authorize(accessToken, source, oauthUserId);
+    usersController.authorize(request, accessToken, source, oauthUserId);
   });
 }
 

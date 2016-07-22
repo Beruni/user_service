@@ -20,7 +20,7 @@ export class User {
     var query = model.where(this.key(), id);
     query.findOne(callback);
   }
-
+  
   userId(token: string) {
     return this.sessionHash(token)['user_id'];
   }

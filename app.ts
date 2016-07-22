@@ -13,24 +13,22 @@ var store = require('mongoose-session');
 
 var app = express();
 
-app.use(session({
-    key: 'session',
-    secret: 'this is session will be encrypted',
-    store: store(mongoose),
-    cookie:{
-    	expires: new Date(Date.now() + 60 * 60 * 1000),
-    	secure : true,
-    	domain : 'http://localhost:8080',
-    	httpOnly : false,
-    	path : '/authorize'
-    }
-}));
+app.set('port', process.env.PORT || '3001');
+app.set('mongo_host', process.env.MONGO_PORT_27017_TCP_ADDR || 'localhost');
 
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.set('port', process.env.PORT || '3001');
-app.set('mongo_host', process.env.MONGO_PORT_27017_TCP_ADDR || 'localhost');
+app.use(session({
+    name: 'Beruni',
+    secret: 'this session will be encrypted',
+    store: store(mongoose),
+    cookie:{
+    	maxAge: 60 * 60 * 1000,
+    	domain : 'http://localhost:8080',
+    	path : '/'
+    }
+}));
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");

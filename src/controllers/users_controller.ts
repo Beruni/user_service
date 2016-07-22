@@ -22,14 +22,15 @@ export class UsersController {
     });
   }
 
-  authorize(accessToken, source, oauthUserId) {
+  authorize(request, accessToken, source, oauthUserId) {
     graph.setAccessToken(accessToken);
     var user = this.user;
     var renderer = this.renderer;
     graph.get(oauthUserId, { "fields": "name, email" }, function(err, userData) {
       var userObject = user.save(userData,source);
       var userToken = user.userToken(userObject);
-      renderer.render({"user_token": userToken, coookie : {expires: new Date(Date.now() + 60 * 60 * 1000)}});
+      request.session['token'] = userToken;;
+      renderer.render({"user_token": userToken});
     });
   }
 }
