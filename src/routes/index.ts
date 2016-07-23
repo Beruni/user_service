@@ -13,7 +13,7 @@ var loginUsingSession = function(request,response, next){
   next();
 }
 
-routes.use(loginUsingSession);
+routes.use(loginUsingSession)
 
 routes.get('/current_user', function(request, response) {
   var usersController = new controllers.UsersController(new renderers.JsonRenderer(response));

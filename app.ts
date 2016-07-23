@@ -17,16 +17,18 @@ app.set('port', process.env.PORT || '3001');
 app.set('mongo_host', process.env.MONGO_PORT_27017_TCP_ADDR || 'localhost');
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 
 app.use(session({
     name: 'Beruni',
     secret: 'this session will be encrypted',
+    resave : true,
+    saveUninitialized: true,
     store: store(mongoose),
     cookie:{
     	maxAge: 60 * 60 * 1000,
     	domain : 'http://localhost:8080',
-    	path : '/'
     }
 }));
 

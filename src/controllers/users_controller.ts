@@ -29,7 +29,8 @@ export class UsersController {
     graph.get(oauthUserId, { "fields": "name, email" }, function(err, userData) {
       var userObject = user.save(userData,source);
       var userToken = user.userToken(userObject);
-      request.session['user_token'] = userToken;;
+      request.session['user_token'] =  userToken;
+      request.session.save();
       renderer.render({"user_token": userToken});
     });
   }
