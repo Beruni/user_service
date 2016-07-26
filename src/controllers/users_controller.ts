@@ -1,36 +1,24 @@
-import * as models from '../models';
+import { User } from '../models';
+import { JsonRenderer } from '../renderers';
+import {sign} from "jsonwebtoken";
 var graph = require('fbgraph');
 
 export class UsersController {
-  renderer;
-  user;
-  constructor(renderer) {
-    this.renderer = renderer;
-    this.user = new models.User();
+
+  private user: User;
+  
+  constructor(private renderer: JsonRenderer, private tokenSecret: string) {
+    this.user = new User();
   }
 
-  get(token) {
-    var renderer = this.renderer;
-    var userId = this.user.userId(token);
-    this.user.findById(userId, function (err, user) {
-      if (err) {
-        console.log(err);
-        renderer.renderError(err, 500);
-      } else {
-        renderer.render(user);
-      }
-    });
-  }
-
-  authorize(request, accessToken, source, oauthUserId) {
+  authorize(accessToken, source, oauthUserId) {
     graph.setAccessToken(accessToken);
-    var user = this.user;
-    var renderer = this.renderer;
+    let user = this.user;
+    let renderer = this.renderer;
+    let tokenSecret = this.tokenSecret;
     graph.get(oauthUserId, { "fields": "name, email" }, function(err, userData) {
-      var userObject = user.save(userData,source);
-      var userToken = user.userToken(userObject);
-      request.session['user_token'] =  userToken;
-      request.session.save();
+      user.save(userData, source);
+      var userToken = sign(userData, tokenSecret, { expiresIn: 1440});
       renderer.render({"user_token": userToken});
     });
   }

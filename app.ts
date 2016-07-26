@@ -6,10 +6,7 @@ import * as express from "express";
 import * as mongoose from "mongoose";
 import * as cookieParser from 'cookie-parser'
 import * as routes from "./src/routes";
-
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var store = require('mongoose-session');
+import * as bodyParser from "body-parser";
 
 var app = express();
 
@@ -19,18 +16,6 @@ app.set('mongo_host', process.env.MONGO_PORT_27017_TCP_ADDR || 'localhost');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
-
-app.use(session({
-    name: 'Beruni',
-    secret: 'this session will be encrypted',
-    resave : true,
-    saveUninitialized: true,
-    store: store(mongoose),
-    cookie:{
-    	maxAge: 60 * 60 * 1000,
-    	domain : 'http://localhost:8080',
-    }
-}));
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");

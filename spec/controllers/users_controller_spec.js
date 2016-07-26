@@ -5,7 +5,7 @@ describe('UserController', function() {
 
     describe('get', function() {
 
-        it('should render user for given userId', function() {
+        xit('should render user for given userId', function() {
             var renderer = {render: function(user) {
                 expect(user).not.toBe(null);
             }};
@@ -23,7 +23,7 @@ describe('UserController', function() {
             expect(renderer.render).toHaveBeenCalledWith(userObject);
         });
 
-        it('should log the error and continue to render the model in case fetch fails', function() {
+        xit('should log the error and continue to render the model in case fetch fails', function() {
             var renderer = {renderError: function(error, status){}};
             spyOn(renderer, 'renderError');
             spyOn(console, 'log').andCallFake(function(message) {
