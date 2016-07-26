@@ -19,7 +19,7 @@ export class UsersController {
     graph.get(oauthUserId, { "fields": "name, email" }, function(err, userData) {
       user.save(userData, source);
       var userToken = sign(userData, tokenSecret, { expiresIn: 1440});
-      renderer.render({"user_token": userToken});
+      renderer.render(userToken);
     });
   }
 }
