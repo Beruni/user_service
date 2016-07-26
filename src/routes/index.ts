@@ -1,6 +1,5 @@
 import * as controllers from '../controllers';
 import * as models from '../models';
-
 import {JsonRenderer} from '../renderers';
 import * as express from 'express';
 import {verify} from 'jsonwebtoken';

@@ -14,31 +14,6 @@ export class User {
     query.findOne(callback);
   }
   
-  userId(token: string) {
-    return this.sessionHash(token)['user_id'];
-  }
-
-  sessionHash(token: string) {
-    var decipher = crypto.createDecipher('aes-256-ctr', process.env.SESSION_ENC_PASSWORD || 'mysupersecureamazingpassword');
-    var dec = decipher.update(token,'hex','utf8');
-    dec += decipher.final('utf8');
-    return JSON.parse(dec);    
-  }
-
-  userToken(userData: JSON) {
-    var encryptedData = '';
-    var cipher = crypto.createCipher('aes-256-ctr', process.env.SESSION_ENC_PASSWORD || 'mysupersecureamazingpassword');
-    cipher.on('readable', function() {
-      var data: Buffer = cipher.read() as Buffer;
-      if (data) {
-        encryptedData += data.toString('hex');
-      }
-    });
-    cipher.write(JSON.stringify({"user_id": userData['_id']}));
-    cipher.end();
-    return encryptedData;
-  }
-
   save(userData:JSON, source:string){
     var user = new model({"_id": userData["id"], "user_data": userData, "source": source});
     this.findById(userData['id'],function(err,currentUser){
