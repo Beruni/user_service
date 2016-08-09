@@ -18,7 +18,7 @@ export class UsersController {
     let tokenSecret = this.tokenSecret;
     graph.get(oauthUserId, { "fields": "name, email" }, function(err, userData) {
       user.save(userData, source);
-      var userToken = sign(userData, tokenSecret, { expiresIn: 1440});
+      var userToken = sign(userData, tokenSecret, { expiresIn: 60 * 60 * 48});
       renderer.render({"user_token": userToken});
     });
   }
