@@ -1,8 +1,3 @@
-image: node:6.2.2
-
-services:
-  - mongo
-
 stages:
   - test
   - build
@@ -12,3 +7,13 @@ unit_test:
   stage: test
   script:
     - deploy/unit_test.sh
+
+build_app:
+  stage: build
+  script:
+    - deploy/build_app.sh
+
+build_docker_image:
+  stage: build
+  script:
+    - deploy/build_docker_image.sh
