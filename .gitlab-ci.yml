@@ -1,0 +1,14 @@
+image: node:6.2.2
+
+services:
+  - mongo
+
+stages:
+  - test
+  - build
+  - deploy
+
+unit_test:
+  stage: test
+  script:
+    - deploy/unit_test.sh
