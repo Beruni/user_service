@@ -12,8 +12,6 @@ unit_test:
 
 build_app:
   stage: build
-  cache:
-    untracked: true
   script:
     - deploy/build_app.sh
 
