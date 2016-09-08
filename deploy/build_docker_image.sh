@@ -1,3 +1,4 @@
 #!/bin/bash -e
 
-ls -latrh ./dist
+cd dist
+docker build -f Dockerfile --tag user_service:v1 ../

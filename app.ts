@@ -12,7 +12,7 @@ var app = express();
 
 app.set('port', process.env.PORT || '3001');
 var mongo_fallback_host = process.env.MONGO_PORT_27017_TCP_ADDR || 'localhost';
-var mongo_fallback_url = 'mongodb://'+ app.get('mongo_host') +'/beruni_users';
+var mongo_fallback_url = 'mongodb://'+ mongo_fallback_host +'/beruni_users';
 
 app.set('mongo_url', process.env.MONGODB_URI || mongo_fallback_url);
 
