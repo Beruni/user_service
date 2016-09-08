@@ -5,6 +5,8 @@ stages:
 
 unit_test:
   stage: test
+  cache:
+    untracked: true
   script:
     - deploy/unit_test.sh
 
@@ -17,7 +19,5 @@ build_app:
 
 build_docker_image:
   stage: build
-  cache:
-    untracked: true
   script:
     - deploy/build_docker_image.sh
