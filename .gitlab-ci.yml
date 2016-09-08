@@ -1,3 +1,5 @@
+cache:
+  untracked: true
 stages:
   - test
   - build
@@ -5,8 +7,6 @@ stages:
 
 unit_test:
   stage: test
-  cache:
-    untracked: true
   script:
     - deploy/unit_test.sh
 
