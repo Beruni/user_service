@@ -15,9 +15,6 @@ unit_test:
 build_app:
   stage: build
   script:
-    - deploy/build_app.sh
-
-build_docker_image:
-  stage: build
-  script:
+    - deploy/compile_app.sh
     - deploy/build_docker_image.sh
+    
