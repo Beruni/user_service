@@ -11,7 +11,10 @@ import * as bodyParser from "body-parser";
 var app = express();
 
 app.set('port', process.env.PORT || '3001');
-app.set('mongo_host', process.env.MONGO_PORT_27017_TCP_ADDR || 'localhost');
+var mongo_fallback_host = process.env.MONGO_PORT_27017_TCP_ADDR || 'localhost';
+var mongo_fallback_url = 'mongodb://'+ app.get('mongo_host') +'/beruni_users';
+
+app.set('mongo_url', process.env.MONGODB_URI || mongo_fallback_url);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -32,4 +35,4 @@ app.get("/ping", function(request, response){
 app.use(routes);
 
 app.listen(app.get('port'));
-mongoose.connect('mongodb://'+ app.get('mongo_host') +'/beruni_users');
+mongoose.connect(app.get('mongo_url'));
