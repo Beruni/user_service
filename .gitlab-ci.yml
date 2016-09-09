@@ -24,4 +24,4 @@ deploy_staging:
   script:
     - deploy/push_to_heroku.sh
   variables:
-    CUSTOM_ENVIRONMENT: staging-
+    CUSTOM_ENVIRONMENT: "staging-"
