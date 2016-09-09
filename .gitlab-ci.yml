@@ -17,4 +17,11 @@ build_app:
   script:
     - deploy/compile_app.sh
     - deploy/build_docker_image.sh
-    
+
+deploy_staging:
+  when: manual
+  stage: deploy
+  script:
+    - deploy/push_to_heroku.sh
+  variables:
+    CUSTOM_ENVIRONMENT: staging-
