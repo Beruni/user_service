@@ -19,7 +19,6 @@ build_app:
     - deploy/build_docker_image.sh
 
 deploy_staging:
-  when: manual
   stage: deploy
   script:
     - deploy/push_to_heroku.sh
